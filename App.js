@@ -19,7 +19,13 @@ app.use("/public/images", express.static(path.join("public", "images")));
 app.set("view engine", "ejs");
 // DB_Connection variable is mongoose instance whic runs project, if successfully connected to db on port 5000
 DB_Connection.on("connected", function () {
-  app.listen(5000);
+  const PORT=process.env.PORT ||5000;
+  app.listen(PORT,()=>{
+
+    console.log(`listening on port  ${PORT}`);
+    
+    
+    });
 });
 // Error message handler
 DB_Connection.on("error", function (err) {
@@ -43,3 +49,4 @@ app.get(`/`, async (req, res, next) => {
 });
 // prepending the blog crud routes with the /blog and defines the blog routes
 app.use("/blog", BlogRoutes);
+
